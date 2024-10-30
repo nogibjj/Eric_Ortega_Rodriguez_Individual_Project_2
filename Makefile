@@ -1,32 +1,25 @@
+rust-version:
+	@echo "Rust command-line utility versions:"
+	rustc --version 			#rust compiler
+	cargo --version 			#rust package manager
+	rustfmt --version			#rust code formatter
+	rustup --version			#rust toolchain manager
+	clippy-driver --version		#rust linter
+
 install:
-	pip install --upgrade pip &&\
-		pip install -r requirements.txt
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-test:
-	python -m pytest -vv --cov=main --cov=mylib test_*.py
+release:
+	cd rust-cli-binary && cargo build --release
 
-format:	
-	black *.py 
+format:
+	cd rust-cli-binary && cargo fmt --quiet
 
 lint:
-	ruff check *.py mylib/*.py
+	cd rust-cli-binary && cargo clippy --quiet
 
-container-lint:
-	docker run --rm -i hadolint/hadolint < Dockerfile
+run:
+	cd rust-cli-binary && cargo run
 
-refactor: format lint
-
-# Docker
-deploy:
-	@echo "Deploying application..."
-	docker build -t my-app .
-	docker run -d -p 80:80 my-app
-
-# running all checks 
-all: install lint test format
-
-# used for multiple tasks
-pre-deploy: install refactor test
-
-# deploy
-deploy-all: pre-deploy deploy
+test:
+	cd rust-cli-binary && cargo test --quiet
