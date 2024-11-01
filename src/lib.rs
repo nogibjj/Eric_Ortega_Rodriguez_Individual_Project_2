@@ -1,5 +1,3 @@
-// lib.rs
-
 use rusqlite::{Connection, Result};
 use std::error::Error;
 use csv::ReaderBuilder;
@@ -45,10 +43,11 @@ pub fn load(dataset: &str, db_name: &str, table_name: &str) -> Result<(), Box<dy
     let mut rdr = ReaderBuilder::new().from_path(dataset)?;
     for result in rdr.records() {
         let record = result?;
-        // Assuming the table has four columns; adjust as necessary
+        // Assuming the table has the correct number of columns; adjust placeholders if necessary
+        let params: Vec<&dyn rusqlite::ToSql> = record.iter().map(|s| s as &dyn rusqlite::ToSql).collect();
         conn.execute(
-            &format!("INSERT INTO {} VALUES (?, ?, ?, ?)", table_name),
-            &record.iter().collect::<Vec<&str>>(),
+            &format!("INSERT INTO {} VALUES ({})", table_name, vec!["?"; record.len()].join(", ")),
+            params.as_slice(),
         )?;
     }
     Ok(())
