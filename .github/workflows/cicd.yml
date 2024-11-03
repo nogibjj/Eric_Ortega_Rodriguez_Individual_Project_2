@@ -1,4 +1,4 @@
-name: Eric_Ortega_Rodriguez_Individual_Project_2 CI/CD Pipeline
+name: Rust CI/CD Pipeline
 
 on:
   push:
