@@ -1,44 +1,41 @@
-name: Rust CLI Binary
+name: CI/CD Pipeline
+
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions-rs/toolchain@v1
-      with:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Rust
+        uses: actions-rs/toolchain@v1
+        with:
           toolchain: stable
-          profile: minimal
-          components: clippy, rustfmt
-          override: true
+          target: x86_64-unknown-linux-gnu
 
-    - name: Check Rust versions
-      run: make rust-version
+      - name: Build Rust
+        run: make release
 
-    - name: Install Dependencies
-      run: make install
+      - name: Format the Code
+        run: make format
 
-    - name: Build Rust
-      run: make release
+      - name: Make Lint
+        run: make lint
 
-    - name: Format the Code
-      run: make format
+      - name: Make Test
+        run: make test
 
-    - name: Make Lint
-      run: make lint
-
-    - name: Make Test
-      run: make test
-
-    - name: Archive Binary
-      uses: actions/upload-artifact@v2
-      with:
-        name: optimized-binary
-        path: rust_cli_binary/target/debug/rust-cli-binary
+      - name: Archive Binary
+        uses: actions/upload-artifact@v4  # Updated to v4
+        with:
+          name: optimized-binary
+          path: rust_cli_binary/target/debug/rust_cli_binary
