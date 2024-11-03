@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Eric_Ortega_Rodriguez_Individual_Project_2 CI/CD Pipeline
 
 on:
   push:
@@ -34,8 +34,11 @@ jobs:
       - name: Make Test
         run: make test
 
-      - name: Archive Binary
-        uses: actions/upload-artifact@v4  # Updated to v4
+      - name: Prepare binary artifact
+        run: mkdir -p data && cp rust_cli_binary/target/release/Eric_Ortega_Rodriguez_Individual_Project_2 ./data/  # Copies the binary to data folder for artifact upload
+
+      - name: Upload binary artifact to GitHub
+        uses: actions/upload-artifact@v4  # This action uploads the artifact
         with:
-          name: optimized-binary
-          path: rust_cli_binary/target/debug/rust_cli_binary
+          name: Eric_Ortega_Rodriguez_Individual_Project_2  # Artifact name
+          path: data/Eric_Ortega_Rodriguez_Individual_Project_2  # Path to the binary
