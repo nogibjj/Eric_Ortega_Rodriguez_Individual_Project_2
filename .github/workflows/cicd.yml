@@ -34,8 +34,11 @@ jobs:
       - name: Make Test
         run: make test
 
+      - name: List release directory
+        run: ls rust_cli_binary/target/release  # Debug step to confirm binary name
+
       - name: Prepare binary artifact
-        run: mkdir -p data && cp rust_cli_binary/target/release/Eric_Ortega_Rodriguez_Individual_Project_2 ./data/  # Copies the binary to data folder for artifact upload
+        run: mkdir -p data && cp rust_cli_binary/target/release/Eric_Ortega_Rodriguez_Individual_Project_2 ./data/  # Adjust the binary name if needed
 
       - name: Upload binary artifact to GitHub
         uses: actions/upload-artifact@v4  # This action uploads the artifact
