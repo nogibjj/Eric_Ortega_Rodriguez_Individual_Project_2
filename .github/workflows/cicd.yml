@@ -30,12 +30,12 @@ jobs:
         run: ls rust_cli_binary/target  # Check if the target directory exists and what's inside
 
       - name: List contents of release directory
-        run: ls rust_cli_binary/target/release  
+        run: ls rust_cli_binary/target/release  # Check if the release directory was created and contains the binary
 
       - name: Prepare binary artifact
         run: |
           mkdir -p data
-          cp rust_cli_binary/Eric_Ortega_Rodriguez_Individual_Project_2 data/  # Adjust binary name if different
+          cp rust_cli_binary/target/release/Eric_Ortega_Rodriguez_Individual_Project_2 data/  # Adjust binary name if different
 
       - name: Upload binary artifact to GitHub
         uses: actions/upload-artifact@v4
