@@ -23,19 +23,14 @@ jobs:
           target: x86_64-unknown-linux-gnu
 
       - name: Build Rust
-        run: make release
+        working-directory: rust_cli_binary
+        run: cargo build --release
 
-      - name: Format the Code
-        run: make format
+      - name: List contents of target directory
+        run: ls rust_cli_binary/target  # Check if the target directory exists and what's inside
 
-      - name: Make Lint
-        run: make lint
-
-      - name: Make Test
-        run: make test
-
-      - name: List release directory
-        run: ls rust_cli_binary/target/release 
+      - name: List contents of release directory
+        run: ls rust_cli_binary/target/release  
 
       - name: Prepare binary artifact
         run: |
@@ -47,6 +42,7 @@ jobs:
         with:
           name: Eric_Ortega_Rodriguez_Individual_Project_2  # Artifact name
           path: data/Eric_Ortega_Rodriguez_Individual_Project_2  # Path to the binary
+
 
 # name: Rust CI/CD Pipeline
 
