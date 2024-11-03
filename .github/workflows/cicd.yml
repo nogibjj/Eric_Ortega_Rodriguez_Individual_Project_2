@@ -35,7 +35,7 @@ jobs:
       - name: Prepare binary artifact
         run: |
           mkdir -p data
-          cp rust_cli_binary/target/release/Eric_Ortega_Rodriguez_Individual_Project_2 data/  # Adjust binary name if different
+          cp rust_cli_binary/Eric_Ortega_Rodriguez_Individual_Project_2 data/  # Adjust binary name if different
 
       - name: Upload binary artifact to GitHub
         uses: actions/upload-artifact@v4
