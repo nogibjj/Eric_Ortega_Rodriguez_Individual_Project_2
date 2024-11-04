@@ -1,4 +1,4 @@
-name: Rust CI/CD Pipeline
+name: Rust CI/CD with tests
 
 on:
   push:
@@ -12,36 +12,37 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      WORKING_DIR: rust_cli_binary #change this to the rust project name you are developing.
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: x86_64-unknown-linux-gnu
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
 
-      - name: Verify Project Structure
-        run: |
-          echo "Checking for Cargo.toml and src directory contents"
-          ls rust_cli_binary/Cargo.toml  # Verify Cargo.toml exists
-          ls rust_cli_binary/src         # Verify src directory exists and contains required files
+    - name: Check
+      run: cargo check
+      working-directory: ${{ env.WORKING_DIR }}
 
-      - name: Build Rust
-        run: cargo build --release
-        working-directory: rust_cli_binary
+    - name: Format
+      run: cargo fmt
+      working-directory: ${{ env.WORKING_DIR }}
 
-      - name: List contents of target directory
-        run: ls rust_cli_binary/target  # Check if target directory exists
+    - name: Test
+      run: cargo test
+      working-directory: ${{ env.WORKING_DIR }}
 
-      - name: List contents of release directory
-        run: ls rust_cli_binary/target/release  # Check if release directory was created
+    - name: Release
+      run: cargo build --release
+      working-directory: ${{ env.WORKING_DIR }}
 
-      - name: Prepare binary artifact
-        run: |
-          mkdir -p data
-          cp rust_cli_binary/target/release/rust_cli_binary data/  # Adjust binary name if different
-
-      - name: Upload binary artifact to GitHub
-        uses: actions/upload
+    - name: Upload Binary Artifact
+      uses: actions/upload-artifact@v4 #v3 is scheduled for deprecation Nov 30 2024 check marketplace
+      with:
+        name: CLI Binary
+        path: ${{ env.WORKING_DIR }}/target/release/rust_cli_binary #change the /add to the name of your binary
