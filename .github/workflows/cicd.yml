@@ -22,12 +22,12 @@ jobs:
           toolchain: stable
           target: x86_64-unknown-linux-gnu
 
-      - name: Verify Cargo.toml existence
-        run: ls rust_cli_binary/Cargo.toml  # Check if Cargo.toml exists in the expected location
+      - name: Verify Project Structure
+        run: |
+          echo "Checking Cargo.toml and src directory"
+          ls rust_cli_binary/Cargo.toml  # Check if Cargo.toml exists
+          ls rust_cli_binary/src         # Check if src directory and files exist
 
       - name: Build Rust
         run: cargo build --release
-        working-directory: rust_cli_binary
-
-      - name: List contents of target directory
-        run: ls
+        working-directory
