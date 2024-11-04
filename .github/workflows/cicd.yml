@@ -24,10 +24,24 @@ jobs:
 
       - name: Verify Project Structure
         run: |
-          echo "Checking Cargo.toml and src directory"
-          ls rust_cli_binary/Cargo.toml  # Check if Cargo.toml exists
-          ls rust_cli_binary/src         # Check if src directory and files exist
+          echo "Checking for Cargo.toml and src directory contents"
+          ls rust_cli_binary/Cargo.toml  # Verify Cargo.toml exists
+          ls rust_cli_binary/src         # Verify src directory exists and contains required files
 
       - name: Build Rust
         run: cargo build --release
-        working-directory
+        working-directory: rust_cli_binary
+
+      - name: List contents of target directory
+        run: ls rust_cli_binary/target  # Check if target directory exists
+
+      - name: List contents of release directory
+        run: ls rust_cli_binary/target/release  # Check if release directory was created
+
+      - name: Prepare binary artifact
+        run: |
+          mkdir -p data
+          cp rust_cli_binary/target/release/rust_cli_binary data/  # Adjust binary name if different
+
+      - name: Upload binary artifact to GitHub
+        uses: actions/upload
