@@ -1,5 +1,5 @@
 [package]
-name = "rust-cli-binary"
+name = "rust_cli_binary"
 version = "0.1.0"
 edition = "2021"
 
