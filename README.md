@@ -1,10 +1,8 @@
+[![Rust CI/CD with tests](https://github.com/nogibjj/Eric_Ortega_Rodriguez_Individual_Project_2/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Eric_Ortega_Rodriguez_Individual_Project_2/actions/workflows/cicd.yml)
 # Individual Project 2
 # Eric Ortega Rodriguez 
 # Rust CLI Binary with SQLite
 ![alt text](image-5.png)
-
-
-This project is a Command Line Interface (CLI) application built with Rust that performs CRUD (Create, Read, Update, Delete) operations on a SQLite database. It demonstrates Rust's performance, memory safety, and concurrency features while interacting with a database. 
 
 ## Project Structure
 
