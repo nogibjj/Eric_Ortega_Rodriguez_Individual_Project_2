@@ -2,6 +2,8 @@
 # Eric Ortega Rodriguez 
 # Rust CLI Binary with SQLite
 ![alt text](image-5.png)
+
+
 This project is a Command Line Interface (CLI) application built with Rust that performs CRUD (Create, Read, Update, Delete) operations on a SQLite database. It demonstrates Rust's performance, memory safety, and concurrency features while interacting with a database. 
 
 ## Project Structure
