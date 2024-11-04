@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      WORKING_DIR: rust_cli_binary #change this to the rust project name you are developing.
+      WORKING_DIR: rust_cli_binary 
 
     steps:
     - name: Checkout code
@@ -42,7 +42,7 @@ jobs:
       working-directory: ${{ env.WORKING_DIR }}
 
     - name: Upload Binary Artifact
-      uses: actions/upload-artifact@v4 #v3 is scheduled for deprecation Nov 30 2024 check marketplace
+      uses: actions/upload-artifact@v4 
       with:
         name: CLI Binary
-        path: ${{ env.WORKING_DIR }}/target/release/rust_cli_binary #change the /add to the name of your binary
+        path: ${{ env.WORKING_DIR }}/target/release/rust_cli_binary 
