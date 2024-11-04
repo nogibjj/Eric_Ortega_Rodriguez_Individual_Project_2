@@ -2,10 +2,10 @@
 rust-version:
 	@echo "Rust command-line utility versions:"
 	@rustc --version            # Rust compiler
-	@cargo --version            # Rust package manager
-	@rustfmt --version          # Rust code formatter
-	@rustup --version           # Rust toolchain manager
-	@clippy-driver --version    # Rust linter
+	@cargo --version            # Cargo package manager
+	@rustfmt --version          # Code formatter
+	@rustup --version           # Toolchain manager
+	@clippy-driver --version    # Linter
 
 # Install Rust toolchain
 install:
