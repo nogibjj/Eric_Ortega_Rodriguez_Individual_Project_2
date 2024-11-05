@@ -6,7 +6,9 @@
 
 ---
 
-![Project Image](image.png)
+<div style="text-align: center;">
+    <img src="image.png" alt="Project Image">
+</div>
 
 ---
 
