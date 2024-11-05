@@ -1,7 +1,9 @@
 [![Rust CI/CD with tests](https://github.com/nogibjj/Eric_Ortega_Rodriguez_Individual_Project_2/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Eric_Ortega_Rodriguez_Individual_Project_2/actions/workflows/cicd.yml)
 
 # Individual Project #2: Rust CLI Binary with SQLite
-**Eric Ortega Rodriguez**
+## Eric Ortega Rodriguez**
+
+
 ![Project Image](image.png)
 
 ## Project Overview
