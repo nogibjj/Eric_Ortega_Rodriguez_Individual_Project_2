@@ -3,7 +3,7 @@
 # Individual Project #2: Rust CLI Binary with SQLite
 **Eric Ortega Rodriguez**
 
-![Project Image](image.png)
+![Project Image](image-5.png)
 
 ## Project Overview
 
