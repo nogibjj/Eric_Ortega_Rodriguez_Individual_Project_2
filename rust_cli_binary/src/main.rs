@@ -1,11 +1,9 @@
-use mylib::{extract, trans_load, query};
+use mylib::{extract, trans_load, query, delete_rows};
 
 fn main() {
-    // Paths and parameters for the new dataset
+    // Paths and parameters for the dataset
     let dataset_url = "https://github.com/fivethirtyeight/data/blob/refs/heads/master/avengers/avengers.csv";
     let dataset_path = "data/avengers.csv";
-    let db_name = "data/avengers.db";
-    let table_name = "Avengers";
 
     // Extract
     println!("Extracting data from the URL...");
@@ -22,13 +20,14 @@ fn main() {
         println!("Data transformed and loaded successfully.");
     }
 
-    // Query
+    // Query top 5 rows
     println!("Querying data...");
-    let query_string = format!("SELECT * FROM {} LIMIT 5;", table_name);
+    let query_string = "SELECT * FROM Avengers LIMIT 5;";
     match query(&query_string) {
         Ok(results) => println!("Top 5 rows from the Avengers table:\n{}", results),
         Err(e) => eprintln!("Error querying data: {}", e),
     }
+
     // Delete rows with a specific condition
     println!("Deleting rows where status is 'Deceased'...");
     if let Err(e) = delete_rows("status = 'Deceased'") {
@@ -36,5 +35,4 @@ fn main() {
     } else {
         println!("Rows deleted successfully.");
     }
-
 }
