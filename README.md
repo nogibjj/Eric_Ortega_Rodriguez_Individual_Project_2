@@ -14,7 +14,7 @@
 
 ## Project Overview
 
-This project is a Rust-based command-line interface (CLI) application that uses an SQLite database to demonstrate CRUD operations. The application is optimized for performance and includes a GitHub Actions CI/CD workflow for continuous integration and deployment. The project showcases Rust’s syntax and features, GitHub Copilot assistance, and automated CI/CD for robust development.
+This project is a Rust-based command-line interface (CLI) application that uses an SQLite database to demonstrate CRUD operations. The application is optimized for performance and includes a GitHub Actions CI/CD workflow for continuous integration and deployment. The project showcases Rust’s syntax and features, Copilot assistance, and automated CI/CD for robust development.
 
 ### Project Structure
 
@@ -83,7 +83,7 @@ Replace `<binary-name>` with the actual name of your binary if it differs.
 
 ## LLM Assistance
 
-Throughout the development process, GitHub Copilot and other large language models (LLMs) were used to:
+Throughout the development process, large language models (LLMs) were used to:
 
 - Optimize Rust syntax
 - Implement efficient error handling
