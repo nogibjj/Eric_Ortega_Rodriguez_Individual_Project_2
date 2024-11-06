@@ -96,4 +96,4 @@ This project includes a GitHub Actions workflow that builds an optimized binary,
 
 ## Video Demo
 
-A video demonstration showcasing the Rust CLI application, its features, and a step-by-step usage guide can be found [here](#). 
+A video demonstration showcasing the Rust CLI application, its features, and a step-by-step usage guide can be found [here](https://youtu.be/OCWev0BkCQQ). 

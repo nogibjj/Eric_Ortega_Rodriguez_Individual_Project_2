@@ -65,3 +65,20 @@ fn test_trans_load() -> Result<(), Box<dyn Error>> {
     }
     Ok(())
 }
+
+#[test]
+fn test_delete_rows() -> Result<(), Box<dyn Error>> {
+    let conn = setup_database()?;
+    // Insert a row to delete
+    conn.execute("INSERT INTO Avengers (name, superpower) VALUES (?1, ?2)", params!["Black Widow", "Espionage"])?;
+
+    // Delete the row where name is 'Black Widow'
+    conn.execute("DELETE FROM Avengers WHERE name = ?1", params!["Black Widow"])?;
+
+    // Verify the row was deleted
+    let mut stmt = conn.prepare("SELECT name FROM Avengers WHERE name = 'Black Widow'")?;
+    let mut rows = stmt.query([])?;
+    assert!(rows.next()?.is_none(), "Black Widow should have been deleted");
+
+    Ok(())
+}
