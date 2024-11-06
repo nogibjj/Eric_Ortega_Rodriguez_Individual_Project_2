@@ -29,4 +29,12 @@ fn main() {
         Ok(results) => println!("Top 5 rows from the Avengers table:\n{}", results),
         Err(e) => eprintln!("Error querying data: {}", e),
     }
+    // Delete rows with a specific condition
+    println!("Deleting rows where status is 'Deceased'...");
+    if let Err(e) = delete_rows("status = 'Deceased'") {
+        eprintln!("Error deleting rows: {}", e);
+    } else {
+        println!("Rows deleted successfully.");
+    }
+
 }

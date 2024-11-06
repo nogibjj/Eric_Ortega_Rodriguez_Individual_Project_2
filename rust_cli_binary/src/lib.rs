@@ -1,10 +1,10 @@
 use reqwest::blocking::get;
 use std::fs::File;
-use std::io::Write;
+use std::io::{BufReader, BufRead, Write};
 use std::error::Error;
-use std::io::{BufReader, BufRead};
 use rusqlite::{params, Connection, Result, Row};
 
+// Extract function to download data from a URL and save it to a specified path
 pub fn extract(url: &str, path: &str) -> Result<String, Box<dyn Error>> {
     let response = get(url)?;
     let mut file = File::create(path)?;
@@ -12,6 +12,7 @@ pub fn extract(url: &str, path: &str) -> Result<String, Box<dyn Error>> {
     Ok(path.to_string())
 }
 
+// Transform and load function to read CSV data, create a table, and load data into an SQLite database
 pub fn trans_load(path: &str) -> Result<String, Box<dyn Error>> {
     let file = File::open(path)?;
     let reader = BufReader::new(file);
@@ -29,7 +30,6 @@ pub fn trans_load(path: &str) -> Result<String, Box<dyn Error>> {
         [],
     )?;
 
-    // Scope to ensure `stmt` goes out of scope before `connection.close()`
     {
         let mut stmt = connection.prepare("INSERT INTO Avengers (name, alias, power, affiliation, status) VALUES (?, ?, ?, ?, ?)")?;
         for line in reader.lines().skip(1) {
@@ -43,12 +43,13 @@ pub fn trans_load(path: &str) -> Result<String, Box<dyn Error>> {
                 fields[4]
             ])?;
         }
-    } // `stmt` goes out of scope here
+    }
 
     connection.close().unwrap();
     Ok("data/avengers.db".to_string())
 }
 
+// Query function to execute a SQL query and return results as a formatted string
 pub fn query(query: &str) -> Result<String, Box<dyn Error>> {
     let connection = Connection::open("data/avengers.db")?;
     let mut stmt = connection.prepare(query)?;
@@ -72,6 +73,7 @@ pub fn query(query: &str) -> Result<String, Box<dyn Error>> {
     Ok(result)
 }
 
+// Helper function to convert SQLite row values to strings for consistent formatting
 fn get_value_as_string(row: &Row, index: usize) -> Result<String> {
     match row.get_ref(index)? {
         rusqlite::types::ValueRef::Null => Ok("NULL".to_string()),
@@ -80,4 +82,13 @@ fn get_value_as_string(row: &Row, index: usize) -> Result<String> {
         rusqlite::types::ValueRef::Text(s) => Ok(String::from_utf8_lossy(s).to_string()),
         rusqlite::types::ValueRef::Blob(_) => Ok("[BLOB]".to_string()),
     }
+}
+
+// Delete function to remove rows from the Avengers table based on a specified condition
+pub fn delete_rows(condition: &str) -> Result<(), Box<dyn Error>> {
+    let connection = Connection::open("data/avengers.db")?;
+    let delete_query = format!("DELETE FROM Avengers WHERE {}", condition);
+    connection.execute(&delete_query, params![])?;
+    connection.close().unwrap();
+    Ok(())
 }
